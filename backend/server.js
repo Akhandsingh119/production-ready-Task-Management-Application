@@ -59,8 +59,20 @@ app.use((req, res, next) => {
 });
 
 app.use(mongoSanitize());
+
+const allowedOrigins = [
+  'http://localhost:5173',
+  'https://production-ready-task-management-application.onrender.com', // Replace with your actual frontend URL if different
+];
+
 app.use(cors({
-  origin: 'http://localhost:5173', // Default Vite port
+  origin: (origin, callback) => {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
   credentials: true,
 }));
 
