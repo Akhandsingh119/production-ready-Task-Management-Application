@@ -16,7 +16,9 @@ export const AuthProvider = ({ children }) => {
         const response = await api.get('/users/profile');
         setUser(response.data);
       } catch (error) {
+        // If profile fetch fails, clear user and local token
         setUser(null);
+        localStorage.removeItem('token');
       } finally {
         setLoading(false);
       }
@@ -28,6 +30,10 @@ export const AuthProvider = ({ children }) => {
     try {
       const response = await api.post('/users/login', { email, password });
       setUser(response.data);
+      // Store token in localStorage as fallback for cross-site cookie issues
+      if (response.data.token) {
+        localStorage.setItem('token', response.data.token);
+      }
       toast.success('Logged in successfully!');
       return { success: true };
     } catch (error) {
@@ -40,6 +46,10 @@ export const AuthProvider = ({ children }) => {
     try {
       const response = await api.post('/users', { username, email, password });
       setUser(response.data);
+      // Store token in localStorage as fallback
+      if (response.data.token) {
+        localStorage.setItem('token', response.data.token);
+      }
       toast.success('Registration successful!');
       return { success: true };
     } catch (error) {
@@ -52,6 +62,7 @@ export const AuthProvider = ({ children }) => {
     try {
       await api.post('/users/logout');
       setUser(null);
+      localStorage.removeItem('token');
       toast.success('Logged out successfully!');
     } catch (error) {
       toast.error('Logout failed');
