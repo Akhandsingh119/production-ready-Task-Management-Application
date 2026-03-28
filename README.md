@@ -4,6 +4,17 @@ A full-stack, production-grade Task Management Application built with **React 19
 
 🌐 **Live Demo:** [production-ready-task-management-ap.vercel.app](https://production-ready-task-management-ap.vercel.app)
 
+> ## ⚠️ Important — Backend Cold Start (Render Free Tier)
+>
+> The backend API is hosted on **Render's free tier**, which **automatically spins down after 15 minutes of inactivity**.
+>
+> **What this means for you:**
+> - 🐢 The **first request** after idle may take **30–60 seconds** to respond — this is normal
+> - ✅ Once the server is awake, all subsequent requests will be **fast and responsive**
+> - 🔄 If the live demo appears to hang or not load on first visit, **please wait a moment and refresh**
+>
+> This is a known limitation of Render's free hosting plan and does **not** reflect the actual performance of the application.
+
 ---
 
 ## 🚀 Features
@@ -359,11 +370,15 @@ App runs at `http://localhost:5173`.
 3. Add environment variable: `VITE_API_URL=https://your-backend-url/api`
 4. The included `vercel.json` handles SPA client-side routing automatically
 
-### Backend — Render / Railway / Fly.io
+### Backend — Render
+
+The backend is deployed on [Render](https://render.com) (free tier).
 
 1. Point **Root Directory** to `backend`
 2. Set start command to `node server.js`
 3. Add environment variables: `NODE_ENV`, `PORT`, `MONGO_URI`, `JWT_SECRET`
+
+> ⚠️ **Cold Start Notice:** Render's free tier spins down the server after periods of inactivity. The **first request after idle may take 30–60 seconds** to respond while the server wakes up. Subsequent requests will be fast. If the live demo appears unresponsive on first load, please wait a moment and try again.
 
 ---
 
